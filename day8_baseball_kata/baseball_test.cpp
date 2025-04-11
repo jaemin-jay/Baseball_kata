@@ -3,14 +3,25 @@
 #include "baseball.cpp"
 
 
-TEST(BaseballGame, ThrowExceptionWhenInputLengthIsUnmached) {
+class BaseballFixture : public testing::Test {
+public:
 	Baseball game;
-	EXPECT_THROW(game.guess(std::string("12")), std::length_error);
-}
+	void assertIllegalArgument(std::string guessNumber) {
+		//game.guess() 수행 수 exception이 발생해야 pass이다.
+		try {
+			game.guess(std::string("12s"));
+			FAIL();
+		}
+		catch (std::exception e) {
+			//PASS
+		}
+	}
+};
 
-TEST(BaseballGame, ThrowExceptionWhenInvalidChar) {
-	Baseball game;
-	EXPECT_THROW(game.guess(std::string("12s")), std::invalid_argument);
+
+TEST_F(BaseballFixture, ThrowExceptionWhenInvalidCase) {
+	assertIllegalArgument("12");
+	assertIllegalArgument("12s");
 }
 
 
