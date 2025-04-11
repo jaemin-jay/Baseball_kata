@@ -16,7 +16,22 @@ public:
 		if (guessNumber == question)
 			return { true, 3, 0 };
 			
-		return { false, 0, 0 };
+		int idx = 0;
+		GuessResult result = { false, 0 ,0 };
+		for (auto ch : guessNumber) {
+			if (question.find(ch) == std::string::npos) {
+				idx++;
+				continue;
+			}
+			result.balls++;
+			if (guessNumber[idx] == question[idx]) {
+				result.balls--;
+				result.strikes++;
+			}
+			idx++;
+		}
+
+		return result;
 	}
 	void assertIllegalArgument(const std::string& guessNumber)
 	{
