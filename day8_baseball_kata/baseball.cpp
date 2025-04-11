@@ -23,10 +23,11 @@ public:
 				idx++;
 				continue;
 			}
-			result.balls++;
+			
 			if (guessNumber[idx] == question[idx]) {
-				result.balls--;
 				result.strikes++;
+			} else {
+				result.balls++;
 			}
 			idx++;
 		}
