@@ -5,11 +5,11 @@
 
 class BaseballFixture : public testing::Test {
 public:
-	Baseball game;
+	Baseball game{ "123" };
 	void assertIllegalArgument(std::string guessNumber) {
 		//game.guess() 수행 수 exception이 발생해야 pass이다.
 		try {
-			game.guess(std::string("12s"));
+			game.guess(guessNumber);
 			FAIL();
 		}
 		catch (std::exception e) {
@@ -25,6 +25,14 @@ TEST_F(BaseballFixture, ThrowExceptionWhenInvalidCase) {
 	assertIllegalArgument("121");
 }
 
+TEST_F(BaseballFixture, ReturnSolvedResultIfMatchedNumber) {
+	GuessResult result = game.guess("123");
+
+	EXPECT_TRUE(result.solved);
+	EXPECT_EQ(3, result.strikes);
+	EXPECT_EQ(0, result.balls);
+	
+}
 
 int main() {
 	testing::InitGoogleMock();
