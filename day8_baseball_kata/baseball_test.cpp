@@ -3,8 +3,9 @@
 #include "baseball.cpp"
 
 
-TEST(BaseballGame, TreyGameTest) {
-	EXPECT_EQ(1, 1);
+TEST(BaseballGame, ThrowExceptionWhenInputLengthIsUnmached) {
+	Baseball game;
+	EXPECT_THROW(game.guess(std::string("12")), std::length_error);
 }
 
 
